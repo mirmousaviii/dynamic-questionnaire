@@ -363,4 +363,7 @@ To handle **dynamic question visibility**, we use structured dependencies:
 
 ## Screenshots
 
-Will be complete...
+![Form 1](screenshots/form-1.png)
+![From 2](screenshots/form-2.png)
+![response](screenshots/response.png)
+![API](screenshots/api-console.png)
