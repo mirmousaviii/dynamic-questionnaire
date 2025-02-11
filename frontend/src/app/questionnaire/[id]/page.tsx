@@ -1,18 +1,20 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { fetchQuestionnaireById } from "@/services/api";
-import { Questionnaire } from "@/types";
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
+import { fetchQuestionnaireById } from '@/services/api';
+import { Questionnaire } from '@/types';
 
 export default function QuestionnaireDetail() {
   const { id } = useParams();
-  const [questionnaire, setQuestionnaire] = useState<Questionnaire | null>(null);
+  const [questionnaire, setQuestionnaire] = useState<Questionnaire | null>(
+    null
+  );
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (id) {
-      fetchQuestionnaireById(id)
+      fetchQuestionnaireById(id as string)
         .then(setQuestionnaire)
         .catch((err) => setError(err.message));
     }
