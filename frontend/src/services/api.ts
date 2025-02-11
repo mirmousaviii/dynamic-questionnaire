@@ -39,3 +39,12 @@ export async function submitResponses(
 
   return response.json();
 }
+
+// Fetch responses by questionnaire ID
+export async function fetchResponsesByQuestionnaire(id: string) {
+  const response = await fetch(`${API_URL}/questionnaires/${id}/responses`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch responses");
+  }
+  return response.json();
+}

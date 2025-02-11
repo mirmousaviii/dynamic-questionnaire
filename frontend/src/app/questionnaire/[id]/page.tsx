@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { fetchQuestionnaireById, submitResponses } from '@/services/api';
 import { Questionnaire, Question } from '@/types';
+import Link from "next/link";
 
 export default function QuestionnaireDetail() {
   const { id } = useParams();
@@ -105,6 +106,7 @@ export default function QuestionnaireDetail() {
           </button>
         )}
       </div>
+      <Link href={`/questionnaire/${id}/responses`}>View Responses</Link>
     </main>
   );
 }

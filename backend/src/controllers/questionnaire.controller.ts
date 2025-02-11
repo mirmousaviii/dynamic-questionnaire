@@ -73,3 +73,33 @@ export const submitResponses = async (
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+// Fetch responses by questionnaire ID
+export const getResponsesByQuestionnaire = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  const { id } = req.params;
+
+  try {
+    // Fetch questions and responses for the given questionnaire
+    const questions = await prisma.question.findMany({
+      where: { step: { questionnaireId: id } },
+      include: { responses: true },
+    });
+
+    const formattedResponses = questions.map((question) => ({
+      question: question.question,
+      responses: question.responses.map((response) => ({
+        answer: response.answer,
+        createdAt: response.createdAt,
+      })),
+    }));
+
+    res.json(formattedResponses);
+  } catch (error) {
+    console.error("Error fetching responses:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
