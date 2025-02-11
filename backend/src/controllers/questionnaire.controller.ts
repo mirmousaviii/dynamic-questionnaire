@@ -23,7 +23,11 @@ export const getQuestionnaires = async (req: Request, res: Response) => {
 };
 
 // Fetch questionnaire details by ID
-export const getQuestionnaireById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const getQuestionnaireById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   const { id } = req.params;
 
   try {
@@ -36,5 +40,36 @@ export const getQuestionnaireById = async (req: Request, res: Response, next: Ne
   } catch (error) {
     console.error("Error fetching questionnaire:", error);
     next(error);
+  }
+};
+
+// Store individual responses
+export const submitResponses = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  const { questionnaireId, responses } = req.body;
+
+  try {
+    const createdResponses = await prisma.$transaction(
+      responses.map(
+        ({ questionId, answer }: { questionId: string; answer: string }) =>
+          prisma.response.create({
+            data: {
+              questionId,
+              answer,
+            },
+          })
+      )
+    );
+
+    res.status(201).json({
+      message: "Responses saved successfully",
+      responses: createdResponses,
+    });
+  } catch (error) {
+    console.error("Error saving responses:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };

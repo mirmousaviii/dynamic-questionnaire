@@ -37,6 +37,7 @@ model Question {
   stepId    String
   options   String[] // Used for radio/multiselect
   dependency Dependency?
+  responses Response[]
 }
 
 model Dependency {
@@ -45,4 +46,12 @@ model Dependency {
   questionId String @unique
   operator   String
   value      String
+}
+
+model Response {
+  id         String @id @default(uuid())
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId String
+  answer     String
+  createdAt  DateTime @default(now())
 }

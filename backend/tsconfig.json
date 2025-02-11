@@ -2,10 +2,10 @@
   "compilerOptions": {
     // Language and Environment
     "target": "es2016",
+    "rootDir": "./src",
 
     // Modules
     "module": "commonjs",
-    "rootDir": "./src",
 
     // Emit
     "outDir": "./dist",
@@ -16,7 +16,7 @@
 
     // Type Checking
     "strict": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
   "exclude": [
     "migrate.config.ts",
