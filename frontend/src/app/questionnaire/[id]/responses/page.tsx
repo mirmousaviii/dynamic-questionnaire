@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { fetchResponsesByQuestionnaire } from '@/services/api';
+import Link from 'next/link';
 import { ResponsesData } from '@/types';
 
 export default function QuestionnaireResponses() {
@@ -22,7 +23,15 @@ export default function QuestionnaireResponses() {
 
   return (
     <main className="p-6">
-      <h1 className="text-2xl font-bold">Responses</h1>
+      <h3 className="block mt-6 font-semibold text-blue-500 float-left">Responses</h3>
+
+      {/* Link to back */}
+      <span className="block mt-6 font-semibold text-gray-600 float-right">
+        {/* link to the questioner */}
+        <Link href={`/questionnaire/${id}`}>Back</Link>
+      </span>
+      <div className="clear-both"></div>
+
 
       <div className="mt-6 p-4 border rounded-lg shadow">
         {responses.map((response, index) => (
