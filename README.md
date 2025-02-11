@@ -37,9 +37,45 @@ This project is a **dynamic questionnaire web application** that allows users to
 - [Docker](https://www.docker.com/)
 - [PostgreSQL](https://www.postgresql.org/) (if not using Docker)
 
-### Steps to Run Locally
+### Running the Project with Docker
 
-Will be complete...
+JUST RUN THIS LINE:
+
+```bash
+docker-compose up --build
+```
+
+This command will:
+
+- Start PostgreSQL
+- Start Backend [http://localhost:5011](http://localhost:5011)
+- Start Frontend [http://localhost:3000](http://localhost:3000)
+
+### Verifying the Services
+
+```bash
+# Status
+docker ps 
+
+# DB LOG
+docker logs questionnaire_db 
+
+# Backend LOG
+docker logs questionnaire_backend
+
+# Frontend LOG
+docker logs questionnaire_frontend
+
+# Check tables from database
+- docker exec -it questionnaire_db psql -U postgresUser -d dynamic_questionnaire -c "\dt"
+
+```
+
+### Stopping the Containers
+
+```bash
+docker-compose down
+```
 
 ## API Documentation
 
@@ -324,14 +360,7 @@ To handle **dynamic question visibility**, we use structured dependencies:
 | `in` | Must be one of the values |
 | `not_in` | Must NOT be one of the values |
 
-## Project Structure
-
-Will be complete...
 
 ## Screenshots
-
-Will be complete...
-
-## FAQ
 
 Will be complete...
