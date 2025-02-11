@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: questionnaire_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgresUser
+      POSTGRES_PASSWORD: postgresSecret
+      POSTGRES_DB: dynamic_questionnaire
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: questionnaire_backend
+    depends_on:
+      - postgres
+    ports:
+      - "5011:5011"
+    environment:
+      DATABASE_URL: postgresql://postgresUser:postgresSecret@postgres:5432/dynamic_questionnaire
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+volumes:
+  postgres_data:
