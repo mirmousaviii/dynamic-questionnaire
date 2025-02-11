@@ -1,8 +1,10 @@
+import { Questionnaire, Response, ResponsesData } from '@/types';
+
 export const API_URL =
   process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5011/api/v1';
 
 // Fetch all questionnaires
-export async function fetchQuestionnaires() {
+export async function fetchQuestionnaires(): Promise<Questionnaire[]> {
   const response = await fetch(`${API_URL}/questionnaires`);
   if (!response.ok) {
     throw new Error('Failed to fetch questionnaires');
@@ -11,7 +13,9 @@ export async function fetchQuestionnaires() {
 }
 
 // Fetch a single questionnaire by ID
-export async function fetchQuestionnaireById(id: string) {
+export async function fetchQuestionnaireById(
+  id: string
+): Promise<Questionnaire> {
   const response = await fetch(`${API_URL}/questionnaires/${id}`);
   if (!response.ok) {
     throw new Error('Failed to fetch questionnaire details');
@@ -23,7 +27,7 @@ export async function fetchQuestionnaireById(id: string) {
 export async function submitResponses(
   questionnaireId: string,
   responses: { questionId: string; answer: string }[]
-) {
+): Promise<Response[]> {
   const response = await fetch(
     `${API_URL}/questionnaires/${questionnaireId}/responses`,
     {
@@ -41,10 +45,12 @@ export async function submitResponses(
 }
 
 // Fetch responses by questionnaire ID
-export async function fetchResponsesByQuestionnaire(id: string) {
+export async function fetchResponsesByQuestionnaire(
+  id: string
+): Promise<ResponsesData[]> {
   const response = await fetch(`${API_URL}/questionnaires/${id}/responses`);
   if (!response.ok) {
-    throw new Error("Failed to fetch responses");
+    throw new Error('Failed to fetch responses');
   }
   return response.json();
 }
