@@ -18,18 +18,21 @@ export default function Home() {
   }, []);
 
   return (
-    <ul className="space-y-4">
-      {questionnaires?.map((q) => (
-        <li key={q.id} className="p-4 border rounded-lg shadow">
-          <Link
-            href={`/questionnaire/${q.id}`}
-            className="text-lg font-semibold hover:underline"
-          >
-            {q.title}
-          </Link>
-          <p className="text-gray-600">{q.description}</p>
-        </li>
-      ))}
-    </ul>
+    <div className="p-4">
+      <h1 className="text-2xl font-semibold">Questionnaires</h1>
+      <ul className="space-y-4">
+        {questionnaires?.map((q) => (
+          <li key={q.id} className="p-4 border rounded-lg shadow">
+            <Link
+              href={`/questionnaire/${q.id}`}
+              className="text-lg font-semibold hover:underline"
+            >
+              {q.title}
+            </Link>
+            <p className="text-gray-600">{q.description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
